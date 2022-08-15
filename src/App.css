@@ -3,6 +3,14 @@ body {
   color: white;
 } 
 
+.cls-1 {
+  fill: #1d75b8;
+}
+
+.cls-2 {
+  fill: #2d3e50;
+}
+
 .header {
   display: flex;
   border: 1px solid grey;
