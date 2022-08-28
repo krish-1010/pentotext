@@ -1,9 +1,9 @@
-export default function Header(props) {
+export default function Card(props) {
     return (
-      <div className="header">
+      <div className="Cards">
           <p>{props.heading}</p>
-          <p>{props.line}</p>
-          <img src={props.svg} alt="svg" />
+          <div className="block Card-div">{props.line}</div>
+          <img  src={props.svg} width={props.width} alt="svg" />
       </div>
     );
   }
