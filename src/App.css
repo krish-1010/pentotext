@@ -1,6 +1,7 @@
 body {
   background-color: black;
   color: white;
+  /* font-size: 1vw; */
 } 
 
 .cls-1 {
@@ -14,17 +15,21 @@ body {
 .header {
   display: flex;
   border: 1px solid grey;
+  height: 5vh;
+  align-items: center;
 }
 
 .Input-Container {
   display: grid;
   grid-template-columns: auto 350px;
+  height: 90vh;
   /* grid-template-rows: auto 1fr; */
 }
 
 .Flex-1 {
   display: flex;
   flex-direction: column;
+  height: 100%;
   /* width: 79%; */
 }
 
@@ -37,7 +42,7 @@ body {
   align-items: center;
   flex-direction: column;
   /* height: calc(100vh - 15px); */
-  height: calc(90vh - 15px);
+  /* height: calc(90vh - 15px); */
   gap: 1.25rem;
   justify-content: center;
   /* width: 19%; */
@@ -78,9 +83,10 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
   /* padding-top: 20rem;
   padding-bottom: 20rem; */
-  height: calc(80vh - 15px);
+  /* height: calc(80vh - 15px); */
   /* overflow: scroll; */
 }
 
@@ -96,8 +102,9 @@ body {
 
 .footer{
   position: fixed;
-  display: block;
-  min-height: 10px;
+  display: flex;
+  align-items: flex-end;
+  height: 5vh;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -133,6 +140,6 @@ body {
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
-    height: calc(80vh - 1vh);
+    /* height: calc(80vh - 1vh); */
   }
 }
