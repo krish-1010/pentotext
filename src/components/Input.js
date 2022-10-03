@@ -1,12 +1,16 @@
 import Card from "./Card";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Axios from "axios";
+import Textbox from "./Textbox";
 // import imgSvg from "./../images/pngSvg.png";
 
 export default function Header() {
+  const [isFile, setIsFile] = useState(false);
+  const [mes, setMes] = useState("Loading...");
+
   const onDrop = useCallback((e) => {
-    console.log(e); 
+    console.log(e);
     const data = new FormData();
     data.append("Session", "string");
     data.append("srcImg", e[0]);
@@ -25,21 +29,25 @@ export default function Header() {
       .then(function (response) {
         console.log(response.data);
         const message = response.data.value;
+        setMes(message);
         const errMessage = "Please upload a valid image file";
-        if (message === undefined){
+        if (message === undefined) {
           console.log(errMessage);
-        }
-        else{
+          setMes(errMessage);
+
+        } else {
           console.log(message);
+          setMes(message);
         }
-        
-        
       })
       .catch(function (error) {
         console.error(error);
+        setMes(error);
       });
 
     console.log("yes callback");
+
+    setIsFile(true);
 
     // Do something with the files
   }, []);
@@ -49,9 +57,10 @@ export default function Header() {
   });
   const onFileChange = (e) => {
     console.log(e);
+    setIsFile(true);
     const data = new FormData();
     data.append("Session", "string");
-    data.append("srcImg",e.target.files[0]);
+    data.append("srcImg", e.target.files[0]);
 
     const options = {
       method: "POST",
@@ -63,69 +72,74 @@ export default function Header() {
       data: data,
     };
 
-    Axios
-      .request(options)
+    Axios.request(options)
       .then(function (response) {
         console.log(response.data);
         const message = response.data.value;
         const errMessage = "Please upload a valid image file";
-        if (message === undefined){
+        if (message === undefined) {
           console.log(errMessage);
-        }
-        else{
+          setMes(errMessage);
+        } else {
           console.log(message);
+          setMes(message);
         }
       })
       .catch(function (error) {
         console.error(error);
+        setMes(error);
         console.log("file error");
       });
   };
 
-  const SumbitFileData = () => {
-    console.log("yes");
-  };
+  // const SumbitFileData = () => {
+  //   console.log("yes");
+  // };
   return (
     <div className="Input-Container">
       <div className="Flex-1">
         <span className="heading">
           <p>Online OCR Converter</p>
         </span>
-        <div className="Input-box" {...getRootProps()}>
-          <input
-            {...getInputProps()}
-            type="file"
-            name="file_upload"
-            onChange={onFileChange}
-            accept="image/*"
-          />
-          <div className="disp">
-            <div className="first-box">
-              <img
-                src="https://pdf.online/img/icons/png-ocr-color.svg"
-                alt="svg"
-                width="50px"
-                height="50px"
-                className="inline"
-              />
-              <span className="h22">Online OCR Converter</span>
-            </div>
 
-            <div className="applyCenter">
-              Quick and easy way to extract text from image
-              
-            </div>
+        {isFile ? (
+          <Textbox message={mes}/>
+        ) : (
+          <div className="Input-box" {...getRootProps()}>
+            <input
+              {...getInputProps()}
+              type="file"
+              name="file_upload"
+              onChange={onFileChange}
+              accept="image/*"
+            />
+            <div className="disp">
+              <div className="first-box">
+                <img
+                  src="https://pdf.online/img/icons/png-ocr-color.svg"
+                  alt="svg"
+                  width="50px"
+                  height="50px"
+                  className="inline"
+                />
+                <span className="h22">Online OCR Converter</span>
+              </div>
 
-            <div className="applyCenter">
-              <button className="btn" type="button" onClick={open}>
-                Select File
-              </button>
-            </div>
-            <div className="applyCenter">
-              <p>or drop files here</p>
+              <div className="applyCenter">
+                Quick and easy way to extract text from image
+              </div>
+
+              <div className="applyCenter">
+                <button className="btn" type="button" onClick={open}>
+                  Select File
+                </button>
+              </div>
+              <div className="applyCenter">
+                <p>or drop files here</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="Flex-2">
         <div className="Flex-2-1">
